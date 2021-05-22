@@ -24,11 +24,11 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'nome' => 'bail|required',
-            'email'=> 'bail|required|unique:Users',
+            'name' => 'required',
+            'email'=> 'required|unique:users',
             'tipouser' => 'required|digits:1|in:0,1',
-            'cpf' =>  'bail|required_if:tipoUser,0|numeric|digits:11|unique:Users',
-            'cnpj' => 'bail|required_if:tipoUser,1|numeric|digits:14|unique:Users',
+            'cpf' =>  'required_if:tipouser,0|numeric|digits:11|unique:users',
+            'cnpj' => 'required_if:tipouser,1|numeric|digits:14|unique:users',
         ];
     }
 

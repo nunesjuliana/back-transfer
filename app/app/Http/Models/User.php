@@ -12,7 +12,7 @@ class User extends Model
 
     public function isShopkeeper()
     {
-       return $this->tipoUser === UserConstant::TIPOUSER_JURIDICO;
+       return $this->tipouser == UserConstant::TIPOUSER_JURIDICO;
     }
 
     public function hasBalance($value){

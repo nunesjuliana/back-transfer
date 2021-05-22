@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use GuzzleHttp\Client as guzzClient;
 use App\Http\Constants\TransactionConstant;
 use App\Exceptions\ExternalsApisException;
-use Exception;
+use Illuminate\Http\Response;
 
 class SendEmailCompletedTransactionListener implements ShouldQueue
 {
@@ -40,7 +40,7 @@ class SendEmailCompletedTransactionListener implements ShouldQueue
              //  throw new Exception("error na api", 422);
 
       }catch(\Throwable $e){
-          throw new ExternalsApisException("Erro na api de envio de email: {$e->getMessage()} ", 500);
+          throw new ExternalsApisException("Erro na api de envio de email: {$e->getMessage()} ",  Response::HTTP_INTERNAL_SERVER_ERROR);
       }
 
     }

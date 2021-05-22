@@ -7,6 +7,7 @@ use GuzzleHttp\Client as guzzClient;
 use App\Http\Constants\TransactionConstant;
 use App\Exceptions\ExternalsApisException;
 use Exception;
+use Illuminate\Http\Response;
 
 class CheckAuthorizationListener
 {
@@ -34,7 +35,7 @@ class CheckAuthorizationListener
             $response = $client->get(TransactionConstant::URL_AUTORIZATION_TRANSACTION,
             [ 'body' => $body, 'http_errors' => false ]);
        }catch(Exception $e){
-        throw new ExternalsApisException("Erro na api de autorizacao: {$e->getMessage()} ", 500);
+        throw new ExternalsApisException("Erro na api de autorizacao: {$e->getMessage()} ", Response::HTTP_INTERNAL_SERVER_ERROR);
        }
 
     }
