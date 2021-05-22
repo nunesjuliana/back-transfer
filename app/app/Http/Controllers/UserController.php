@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UsuarioRequest;
+use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use App\Http\Services\UsuarioService;
-use App\Http\Models\Usuario;
+use App\Http\Services\UserService;
+use App\Http\Models\User;
 use Exception;
 
-class UsuarioController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +20,7 @@ class UsuarioController extends Controller
     public function index()
     {
         //
-        return Usuario::all();
+        return User::all();
     }
 
     /**
@@ -29,10 +29,10 @@ class UsuarioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UsuarioRequest $request)
+    public function store(UserRequest $request)
     {
         //
-        return Usuario::create($request->all());
+        return User::create($request->all());
 
     }
 
@@ -41,27 +41,27 @@ class UsuarioController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Usuario  $usuario
+     * @param  \App\User  $User
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Usuario $usuario)
+    public function update(Request $request, User $User)
     {
         //
-        $usuario->update($request->all());
-        return $usuario;
+        $User->update($request->all());
+        return $User;
 
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Usuario  $usuario
+     * @param  \App\User  $User
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Usuario $usuario)
+    public function destroy(User $User)
     {
         //
-        $usuario->delete();
+        $User->delete();
 
     }
 

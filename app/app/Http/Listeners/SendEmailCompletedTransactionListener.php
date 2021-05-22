@@ -37,7 +37,7 @@ class SendEmailCompletedTransactionListener implements ShouldQueue
             $response = $client->post(TransactionConstant::URL_NOTIFY_TRANSACTION,
                 [ 'body' => $body, 'http_errors' => false ]);
 
-               throw new Exception("error na api", 422);
+             //  throw new Exception("error na api", 422);
 
       }catch(\Throwable $e){
           throw new ExternalsApisException("Erro na api de envio de email: {$e->getMessage()} ", 500);
