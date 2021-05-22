@@ -12,12 +12,6 @@ use Exception;
 
 class UsuarioController extends Controller
 {
-
-    public function __construct(UsuarioService $usuarioService)
-    {
-        $this->usuarioService = $usuarioService;
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -71,16 +65,5 @@ class UsuarioController extends Controller
 
     }
 
-    public function transaction(Request $request)
-    {
-        $email_payer = $request->payer;
-        $email_payee = $request->payee;
-        $value = $request->value;
-
-        $result = $this->usuarioService->processTransaction($email_payer, $email_payee, $value);
-
-        return $result;
-
-    }
 
 }

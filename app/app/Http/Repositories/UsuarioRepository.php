@@ -5,7 +5,7 @@ use App\Http\Models\Usuario;
 
 class UsuarioRepository
 {
-    public function findByEmail($email)
+    public function findByMail($email)
     {
        $user =  Usuario::where('email', '=', $email)->get();
 

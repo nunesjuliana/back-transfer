@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use App\Exceptions\ValidationUserException;
+use App\Exceptions\ExternalsApisException;
 
 class Handler extends ExceptionHandler
 {
@@ -48,6 +49,10 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         if ($exception instanceof ValidationUserException) {
+            return response()->json(['error' => $exception->getmessage()], $exception->getcode());
+        }
+
+        if ($exception instanceof ExternalsApisException) {
             return response()->json(['error' => $exception->getmessage()], $exception->getcode());
         }
 
