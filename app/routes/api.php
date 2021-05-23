@@ -15,6 +15,6 @@ use App\User;
 |
 */
 
-Route::put('/transaction','TransacaoController@transaction');
+Route::put('/transaction','TransactionController@transaction');
 
-Route::resource('/usuario', 'UsuarioController');
+Route::resource('/user', 'UserController');

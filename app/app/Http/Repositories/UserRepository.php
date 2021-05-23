@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Http\Repositories;
-use App\Http\Models\Usuario;
+use App\Http\Models\User;
 
-class UsuarioRepository
+class UserRepository
 {
     public function findByMail($email)
     {
-       $user =  Usuario::where('email', '=', $email)->get();
+       $user =  User::where('email', '=', $email)->get();
 
        if(count($user) == 0)
          return null;
