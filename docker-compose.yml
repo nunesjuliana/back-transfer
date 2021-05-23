@@ -17,8 +17,8 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_DB: homestead
-      POSTGRES_USER: homestead
-      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: fintech
+      POSTGRES_USER: fintech
+      POSTGRES_PASSWORD: fintech
     volumes:
       - ./database:/var/lib/postgresql
