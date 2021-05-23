@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\UsuarioRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use App\Http\Services\UserService;
-use App\Http\Models\User;
+use App\Http\Services\UsuarioService;
+use App\Http\Models\Usuario;
 use Exception;
 
-class UserController extends Controller
+class UsuarioController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,18 +20,7 @@ class UserController extends Controller
     public function index()
     {
         //
-        return User::all();
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show($User)
-    {
-        //
-        return User::find($User);
+        return Usuario::all();
     }
 
     /**
@@ -40,10 +29,10 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $request)
+    public function store(UsuarioRequest $request)
     {
         //
-        return user::create($request->all());
+        return Usuario::create($request->all());
 
     }
 
@@ -52,27 +41,27 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $User
+     * @param  \App\Usuario  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $User)
+    public function update(Request $request, Usuario $usuario)
     {
         //
-        $User->update($request->all());
-        return $User;
+        $usuario->update($request->all());
+        return $usuario;
 
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $User
+     * @param  \App\Usuario  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $User)
+    public function destroy(Usuario $usuario)
     {
         //
-        $User->delete();
+        $usuario->delete();
 
     }
 

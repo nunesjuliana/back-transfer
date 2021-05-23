@@ -3,7 +3,7 @@
 namespace App\Exceptions;
 use Exception;
 
-class CustomException extends Exception
+class ExternalsApisException extends Exception
 {
     public function __construct(string $message, int $code)
     {

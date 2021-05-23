@@ -2,7 +2,7 @@
 
 namespace App\Http\Events;
 
-use App\Http\Models\User;
+use App\Http\Models\Usuario;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
