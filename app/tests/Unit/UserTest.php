@@ -22,7 +22,7 @@ class UserTest extends TestCase
                 "name" => "juliana nunes",
                 "email" =>"cst@gmail.com",
                 "tipouser"  => "0",
-                "cpf"  => "22222222222",
+                "cpf"  => "81733445072",
                 "password"  => "123",
                 "balance" => 30
         ];
@@ -52,18 +52,14 @@ class UserTest extends TestCase
     {
         $user = factory(\App\Http\Models\User::class)->create(
             [
-                "email" =>"j@gmail.com",
-                "tipouser"  => "0",
-                "cpf"  => "22222222222",
-                "password"  => "123",
-                "balance" => 30
+                "cpf"  => "81733445072",
             ]
         );
 
         $newUser = [
                 "email" =>"cst@gmail.com",
                 "tipouser"  => "0",
-                "cpf"  => "22222222222",
+                "cpf"  => "81733445072",
                 "password"  => "123",
                 "balance" => 30
         ];
@@ -79,17 +75,13 @@ class UserTest extends TestCase
         $user = factory(\App\Http\Models\User::class)->create(
             [
                 "email" =>"cst@gmail.com",
-                "tipouser"  => "0",
-                "cpf"  => "22222222222",
-                "password"  => "123",
-                "balance" => 30
             ]
         );
 
         $newUser = [
                 "email" =>"cst@gmail.com",
                 "tipouser"  => "0",
-                "cpf"  => "11111111111",
+                "cpf"  => "49779827030",
                 "password"  => "123",
                 "balance" => 30
         ];

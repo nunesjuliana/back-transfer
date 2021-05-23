@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Http\Response;
+use App\Http\Constants\UserConstant;
 
 class TransactionTest extends TestCase
 {
@@ -13,24 +14,9 @@ class TransactionTest extends TestCase
     public function testCorretTransactionBetweenUsers()
     {
 
-        $user1 = factory(\App\Http\Models\User::class)->create(
-            [
-                "email" =>"j@gmail.com",
-                "tipouser"  => "0",
-                "cpf"  => "22222222222",
-                "password"  => "123",
-                "balance" => 100
-            ]
-        );
+        $user1 = factory(\App\Http\Models\User::class)->create();
 
-        $user2 = factory(\App\Http\Models\User::class)->create(
-            [
-                "email" =>"cst@gmail.com",
-                "tipouser"  => "0",
-                "password"  => "123",
-                "balance" => 100
-            ]
-        );
+        $user2 = factory(\App\Http\Models\User::class)->create();
 
         $response = $this->put('/api/transaction',
          [
@@ -46,23 +32,12 @@ class TransactionTest extends TestCase
     public function testCorretTransactionBetweenUsersAndShopkeeper()
     {
 
-        $user1 = factory(\App\Http\Models\User::class)->create(
-            [
-                "email" =>"cst@gmail.com",
-                "tipouser"  => "0",
-                "cpf"  => "11111111111",
-                "password"  => "123",
-                "balance" => 100
-            ]
-        );
+        $user1 = factory(\App\Http\Models\User::class)->create();
 
         $user2 = factory(\App\Http\Models\User::class)->create(
             [
-                "email" =>"j@gmail.com",
-                "tipouser"  => "1",
-                "cnpj"  => "22222222222222",
-                "password"  => "123",
-                "balance" => 100
+                "tipouser"  => UserConstant::TIPOUSER_JURIDICO,
+                "cnpj"  => "84038259000111",
             ]
         );
 
@@ -83,23 +58,12 @@ class TransactionTest extends TestCase
 
         $payer = factory(\App\Http\Models\User::class)->create(
             [
-                "email" =>"j@gmail.com",
-                "tipouser"  => 1, //indicando que é lojista
-                "cnpj"  => "22222222222222",
-                "password"  => "123",
-                "balance" => 100
+                "tipouser"  => UserConstant::TIPOUSER_JURIDICO,
+                "cnpj"  => "84038259000111",
             ]
         );
 
-        $payee= factory(\App\Http\Models\User::class)->create(
-            [
-                "email" =>"cst@gmail.com",
-                "tipouser"  => "0",
-                "cpf"  => "11111111111",
-                "password"  => "123",
-                "balance" => 100
-            ]
-        );
+        $payee= factory(\App\Http\Models\User::class)->create();
 
         $response = $this->put('/api/transaction',
          [
@@ -118,20 +82,12 @@ class TransactionTest extends TestCase
         $payer = factory(\App\Http\Models\User::class)->create(
             [
                 "email" =>"j@gmail.com",
-                "tipouser"  => "1", //indicando que é lojista
-                "cnpj"  => "22222222222222",
-                "password"  => "123",
-                "balance" => 100
             ]
         );
 
         $payee= factory(\App\Http\Models\User::class)->create(
             [
                 "email" =>"cst@gmail.com",
-                "tipouser"  => "0",
-                "cpf"  => "11111111111",
-                "password"  => "123",
-                "balance" => 100
             ]
         );
 
@@ -151,23 +107,11 @@ class TransactionTest extends TestCase
 
         $payer = factory(\App\Http\Models\User::class)->create(
             [
-                "email" =>"j@gmail.com",
-                "tipouser"  => "0", //indicando que é lojista
-                "cpf"  => "22222222222",
-                "password"  => "123",
                 "balance" => 30
             ]
         );
 
-        $payee= factory(\App\Http\Models\User::class)->create(
-            [
-                "email" =>"cst@gmail.com",
-                "tipouser"  => "0",
-                "cpf"  => "11111111111",
-                "password"  => "123",
-                "balance" => 100
-            ]
-        );
+        $payee= factory(\App\Http\Models\User::class)->create();
 
         $response = $this->put('/api/transaction',
          [
