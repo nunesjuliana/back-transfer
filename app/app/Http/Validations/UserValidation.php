@@ -2,28 +2,28 @@
 
 namespace App\Http\Validations;
 
-use App\Exceptions\ValidationUserException;
+use App\Exceptions\CustomException;
 use Illuminate\Http\Response;
 
 class UserValidation
 {
 
-    public function transactionValid($Transaction)
+    public function ValidPayer($payer, $value)
     {
 
-        if ($Transaction->getPayer()->isShopkeeper()){
-           throw new ValidationUserException("Lojista não podem realizar transferências", Response::HTTP_PRECONDITION_FAILED);
+        if ($payer->isShopkeeper()){
+           throw new CustomException("Lojista não podem realizar transferências", Response::HTTP_PRECONDITION_FAILED);
         }
 
-        if ($Transaction->getPayer()->hasNoBalance($Transaction->getValue()))
-            throw new ValidationUserException("Usuário {$Transaction->getPayer()->name} tem saldo insuficiente para a transferência", Response::HTTP_PRECONDITION_FAILED);
+        if ($payer->hasNoBalance($value))
+            throw new CustomException("Usuário {$payer->name} tem saldo insuficiente para a transferência", Response::HTTP_PRECONDITION_FAILED);
 
     }
 
     public function ExistsUser($user,$mail)
     {
         if(!isset($user))
-            throw new ValidationUserException("Não existe usuário com email {$mail} no sistema.", Response::HTTP_UNPROCESSABLE_ENTITY);
+            throw new CustomException("Não existe usuário com email {$mail} no sistema.", Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     public function validUsersToTransaction($Transaction)
@@ -36,7 +36,7 @@ class UserValidation
             $Transaction->getPayee(),
             $Transaction->getEmailPayee());
 
-        $this->transactionValid($Transaction);
+        $this->ValidPayer($Transaction->getPayer(),$Transaction->getValue());
     }
 
 }

@@ -1,8 +1,11 @@
-tests:
+run_tests:
 	docker exec webserver vendor/bin/phpunit
 
-start:
-	docker-compose up -d --build
+up_database:
+	docker-compose up -d database
+
+up_serve:
+	docker-compose up -d webserver
 
 stop:
 	docker-compose down
@@ -17,7 +20,10 @@ queue:
 composer_install:
 	composer install
 
-run: migrates tests queue
+run: up_database up_serve queue
+
+start: up_database up_serve composer_install migrates queue
+
 
 
 

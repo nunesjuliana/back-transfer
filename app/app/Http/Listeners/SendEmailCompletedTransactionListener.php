@@ -7,9 +7,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use GuzzleHttp\Client as guzzClient;
 use App\Http\Constants\TransactionConstant;
-use App\Exceptions\ExternalsApisException;
-use Illuminate\Http\Response;
-use Exception;
+
 
 class SendEmailCompletedTransactionListener implements ShouldQueue
 {
