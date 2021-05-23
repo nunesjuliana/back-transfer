@@ -20,35 +20,23 @@ class TransactionService
        $this->UserValidation = $UserValidation;
     }
 
-    private function validUsers($Transaction)
-    {
-        $this->UserValidation->existsUser(
-            $Transaction->payer,
-            $Transaction->email_payer);
-
-        $this->UserValidation->existsUser(
-            $Transaction->payee,
-            $Transaction->email_payee);
-
-        $this->UserValidation->transactionValid($Transaction);
-    }
-
-    public function processTransaction($Transaction)
+    public function processTransaction($transaction)
     {
         DB::beginTransaction();
         try {
 
-            $Transaction->payer = $this->UserRepository->findByMail($Transaction->email_payer);
-            $Transaction->payee = $this->UserRepository->findByMail($Transaction->email_payee);
+            $transaction->setPayer($this->UserRepository->findByMail($transaction->getEmailPayer()));
+            $transaction->setPayee($this->UserRepository->findByMail($transaction->getEmailPayee()));
 
-            $this->validUsers($Transaction);
+            $this->UserValidation->validUsersToTransaction($transaction);
 
-            $Transaction->payer->removeMoney($Transaction->value);
-            $Transaction->payee->putMoney($Transaction->value);
-            $Transaction->payee->save();
-            $Transaction->payer->save();
 
-            event(new TransactionInProcessEvent($Transaction->payer,$Transaction->payee));
+            $transaction->getPayer()->removeMoney($transaction->getValue());
+            $transaction->getPayee()->putMoney($transaction->getValue());
+            $transaction->getPayee()->save();
+            $transaction->getPayer()->save();
+
+            event(new TransactionInProcessEvent($transaction->getPayer(),$transaction->getPayee()));
 
             DB::commit();
 
@@ -57,7 +45,7 @@ class TransactionService
             throw $e;
         }
 
-        event(new CompletedTransactionEvent($Transaction->payer,$Transaction->payee));
+        event(new CompletedTransactionEvent($transaction->getPayer(),$transaction->getPayee()));
 
         return response()->json(['mensagem' => 'Transação realizada com sucesso'], 200);
 

@@ -11,12 +11,12 @@ class UserValidation
     public function transactionValid($Transaction)
     {
 
-        if ($Transaction->payer->isShopkeeper()){
+        if ($Transaction->getPayer()->isShopkeeper()){
            throw new ValidationUserException("Lojista não podem realizar transferências", Response::HTTP_PRECONDITION_FAILED);
         }
 
-        if ($Transaction->payer->hasBalance($Transaction->value))
-            throw new ValidationUserException("Usuário {$Transaction->payer->name} tem saldo insuficiente para a transferência", Response::HTTP_PRECONDITION_FAILED);
+        if ($Transaction->getPayer()->hasNoBalance($Transaction->getValue()))
+            throw new ValidationUserException("Usuário {$Transaction->getPayer()->name} tem saldo insuficiente para a transferência", Response::HTTP_PRECONDITION_FAILED);
 
     }
 
@@ -24,6 +24,19 @@ class UserValidation
     {
         if(!isset($user))
             throw new ValidationUserException("Não existe usuário com email {$mail} no sistema.", Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
+    public function validUsersToTransaction($Transaction)
+    {
+        $this->existsUser(
+            $Transaction->getPayer(),
+            $Transaction->getEmailPayer());
+
+        $this->existsUser(
+            $Transaction->getPayee(),
+            $Transaction->getEmailPayee());
+
+        $this->transactionValid($Transaction);
     }
 
 }

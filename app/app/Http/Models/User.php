@@ -10,12 +10,13 @@ class User extends Model
 
     protected $fillable = ['name','email','cpf','cnpj','tipouser','password','balance'];
 
+
     public function isShopkeeper()
     {
        return $this->tipouser == UserConstant::TIPOUSER_JURIDICO;
     }
 
-    public function hasBalance($value){
+    public function hasNoBalance($value){
 
         return $this->balance - $value < 0;
     }
